@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'quizMe_app.apps.QuizmeAppConfig',
+    'django.contrib.admindocs',
+
+    'rest_framework',
+
+    'quiz_me_app.apps.QuizMeAppConfig',
     'users.apps.UsersConfig',
 ]
 
@@ -57,7 +61,7 @@ ROOT_URLCONF = 'quiz_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,14 +122,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'quizMe_app/'
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-#     os.path.join(
-#         os.path.dirname(__file__),
-#         'static',
-#     ),    
-# )
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -134,6 +135,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL ='users.CustomUser'
 
-LOGIN_REDIRECT_URL = "quizMe_app:index"
+LOGIN_REDIRECT_URL = "home"
 
-LOGOUT_REDIRECT_URL = "quizMe_app:index"
+LOGOUT_REDIRECT_URL = "home"
+
+# REST_FRAMEWORK = {
+#     # Use Django's standard `django.contrib.auth` permissions,
+#     # or allow read-only access for unauthenticated users.
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
+# }

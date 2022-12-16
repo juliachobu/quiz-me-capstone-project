@@ -15,14 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic.base import TemplateView, RedirectView
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
+
+    path("", TemplateView.as_view(template_name="home.html"), name="home"),
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')), # Note: all your app urls will start with this path
     path('users/', include("django.contrib.auth.urls")),
-    path('quizMe_app/', include("quizMe_app.urls")),
-    path('', RedirectView.as_view(pattern_name='quizMe_app:index'))
+    path('', include('quiz_me_app.urls')),
+    path('api/v1/', include('api.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    
+
+
+    
+   
     
 
 

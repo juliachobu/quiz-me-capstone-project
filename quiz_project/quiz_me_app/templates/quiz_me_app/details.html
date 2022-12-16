@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %} 
+
+
+{% for result in choices.text %}
+
+{% comment %} <a href="{% url 'details'  %}"></a>{{ question.choices.correct_answer.all }} {% endcomment %}
+{% endfor %}
+
+
+{% endblock content %}
