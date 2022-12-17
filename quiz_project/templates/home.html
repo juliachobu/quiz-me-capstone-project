@@ -6,10 +6,10 @@
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
   <p><a href="{% url 'logout' %}">Log Out</a></p>
+  <a class="btn btn-primary" href="/questions" role="button">Take a Quiz</a>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Log In</a> |
   <a href="{% url 'signup' %}">Sign Up</a>
 {% endif %}
-<a class="btn btn-primary" href="/questions" role="button">Take a Quiz</a>
 {% endblock %}

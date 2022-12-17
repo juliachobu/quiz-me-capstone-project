@@ -33,21 +33,36 @@ class ResultDetail(ListView):
     context_object_name = 'results'
     template_name = 'quiz_me_app/results.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['results'] = context['results'].all()
-        context['count'] = context['results'].filter(correct_answer = True).count()    
-        return context    
+
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['results'] = context['results'].all()
+    #     context['count'] = context['results'].filter(correct_answer = True).count()    
+    #     return context    
 
 
 def get_results(request):
-    results = Result.objects.all()
-    print(request.POST)
+    choices = Choice.objects.all()
+    questions = Question.objects.all()
     
     if request.method == 'POST':
+        incorrect=[]
+        correct=[]
+        for question in questions:
+            choice_id = request.POST[question.text]
+            choice = Choice.objects.get(id = choice_id)
+            if choice.is_correct:
+                correct.append({'question': question.text, 'choice' : choice.text})
 
-        return redirect('results')
+            else:
+                correct_choice = question.choices.filter(is_correct = True)[0]
+                incorrect.append({'question':question.text, 'choice':correct_choice.text})
+                
+    
 
-    return render(request, 'results.html')
+        return render(request, 'quiz_me_app/results.html', {'correct' : correct, 'incorrect' : incorrect})
+
+    return render(request, 'quiz_me_app/results.html')
 
 

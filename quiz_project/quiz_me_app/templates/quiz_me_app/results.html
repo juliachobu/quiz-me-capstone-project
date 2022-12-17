@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 {% block content %} 
 
+<ul>
+<h2>Questions You've Answered Correctly:</h2>
 
-{% for result in results %}
-{{ result }}
-
-{{ count }}
-{% comment %} <a href="{% url 'details'  %}"></a>{{ question.choices.correct_answer.all }} {% endcomment %}
+{% for result in correct %}
+<br>
+{{ result.question }}
+<br>
+{{ result.choice }}
 {% endfor %}
 
 
+<h2>Questions You've Answered Incorrectly:</h2>
+
+{% for result in incorrect %}
+<br>
+{{ result.question }}
+<br>
+{{ result.choice }}
+{% endfor %}
+
+</ul>
 {% endblock content %}
